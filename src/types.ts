@@ -3,6 +3,7 @@ export interface Person {
         first: string,
         last: string,
     };
+    id: number,
 };
 
 export interface HiredPerson extends Person{

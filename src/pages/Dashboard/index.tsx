@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import PeopleList from "./components/PeopleList";
 import { HiredPerson, Person } from "../../types";
 import HiredPeopleList from "./components/HiredPeopleList";

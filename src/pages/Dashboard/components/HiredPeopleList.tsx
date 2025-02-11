@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import { HiredPerson } from "../../../types";
 import HiredPeopleListItem from "./HiredPeopleListItem";
 
@@ -7,8 +6,8 @@ function PeopleList(props: { people: HiredPerson[] }) {
 
   return (
     <ul>
-      {people.map((person, index) => (
-        <HiredPeopleListItem person={person} key={index} />
+      {people.map((person) => (
+        <HiredPeopleListItem person={person} key={person.id} />
       ))}
     </ul>
   );

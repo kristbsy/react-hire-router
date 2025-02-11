@@ -3,22 +3,18 @@ import HireForm from "./components/HireForm";
 import { HiredPerson, Person } from "../../types";
 import { useParams } from "react-router-dom";
 
-function invariant(value: unknown): asserts value {
-  if (value) return;
-
-  throw new Error("Invariant violation");
-}
-
 function PersonProfile({
   people,
+  hiredPeople,
   onHire,
 }: {
   people: Person[];
+  hiredPeople: HiredPerson[];
   onHire: (person: HiredPerson) => void;
 }) {
-  const [person, setPerson] = useState<Person | null>(null);
+  const [person, setPerson] = useState<Person | HiredPerson | null>(null);
 
-  let { id } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     if (id == undefined) {
@@ -26,11 +22,16 @@ function PersonProfile({
     }
     try {
       const parsedId = parseInt(id);
-      setPerson(people[parsedId]);
+      const hiredIndex = hiredPeople.findIndex((p) => p.id == parsedId);
+      if (hiredIndex !== -1) {
+        setPerson(hiredPeople[hiredIndex]);
+      } else {
+        setPerson(people[parsedId]);
+      }
     } catch {
       return;
     }
-  });
+  }, [id, people, hiredPeople]);
 
   if (!person) return <p>Loading...</p>;
 

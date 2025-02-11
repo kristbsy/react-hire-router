@@ -3,7 +3,7 @@ import { HiredPerson, Person } from "../../../types";
 import { useNavigate } from "react-router-dom";
 
 function HireForm(props: {
-  person: Person;
+  person: Person | HiredPerson;
   onHire: (person: HiredPerson) => void;
 }) {
   const [wage, setWage] = useState(0);
@@ -12,8 +12,8 @@ function HireForm(props: {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     props.onHire({
-      wage,
       ...props.person,
+      wage,
     });
     navigate("/");
   }
@@ -28,7 +28,7 @@ function HireForm(props: {
         onChange={(e) => setWage(e.target.valueAsNumber)}
         value={wage}
       />
-      <button type="submit">Hire</button>
+      <button type="submit">{"wage" in props.person ? "Edit" : "Hire"}</button>
     </form>
   );
 }
